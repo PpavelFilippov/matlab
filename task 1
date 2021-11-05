@@ -1,0 +1,276 @@
+ y=@(x) log(12-0.5*x.^2).*sin(sqrt(0.1+2.1*x.^2)); %Данная функция
+ x = -4.5:0.01:0.5; %обозначим значения x
+ d=y(x);
+ plot(x,d); %график функции
+ grid on % сетка
+ hold on;
+ [x2, y2]=fzero(y,-2); %находим первый корень
+ [x3, y3]=fzero(y,-4); %находи второй корень
+ %отображаем точки на графике
+  plot(x2,y2, 'ro');
+ plot(x3,y3, 'ro');
+ [xmin, ymin]= fminbnd (y, -3.5, -3); %находим минимальное значение функции на интервале [-3.5, -3]
+ plot(xmin, ymin,'bh')
+ f=@(x) -y(x); % переворачиваем функцию
+ [xmax,fmax]= fminbnd (f, -1.5, -0.5); %находим максимальное значение фунции на интервале [-1.5, -0.5]
+ plot(xmax, -fmax, 'bh');
+ [xmin2, ymin2]= fminbnd (y, -0.5, 0.5); %находим миниамально функции на интервале [-3.5, 0.5]
+ plot(xmin2, ymin2,'bh');
+ title('f(x)=ln(12-0.5x^2)sin(sqrt(0.1+2.1x.^2))'); %заголовок
+ %подпись осей
+ xlabel('x');
+ ylabel('y');
+ %подпись точек
+ p1= [x2,y2];
+ p2= [x2+0.5, y2-2];
+ plot([p1(1), p2(1)],[p1(2), p2(2)], 'g' ,'Linewidth', 0.3)
+ text(p2(1),p2(2), 'root');
+ p3=[x3,y3];
+ p4=[x3-0.5,y3+2];
+ plot([p3(1),p4(1)], [p3(2),p4(2)],'g', 'Linewidth', 0.3)
+ text(p4(1),p4(2), 'root');
+ p5=[xmin,ymin];
+ p6=[xmin, ymin+2];
+ plot([p5(1),p6(1)],[p5(2),p6(2)],'g','Linewidth',0.3)
+ text(p6(1), p6(2),'min');
+ p7=[xmax, -fmax];
+ p8=[xmax, -fmax-2];
+ plot([p7(1),p8(1)],[p7(2),p8(2)],'g','Linewidth',0.3)
+ text(p8(1),p8(2), 'max');
+ p9=[xmin2,ymin2];
+ p10=[xmin2,ymin+2];
+ plot([p9(1),p10(1)],[p9(2),p10(2)],'g','Linewidth',0.3)
+ text(p10(1),p10(2), 'extremum');
+ 
+figure %создание нового графического окна
+
+p=[0.7, -3.6, 1.25, 2.26]; %Данный полином
+ x=-2:0.01:5; %обозначим значения x
+ pol= polyval(p,x);
+ plot(x,pol); %график полинома
+ grid on; %сетка
+ hold on;
+ %Найдем корни полинома
+ r=roots(p);
+ r1=[r(1)];
+ r2=[r(2)];
+ r3=[r(3)];
+ %Отмечаем корни на графике
+ plot(r,0,'r*');
+ %Вычислим производную
+ q=polyder(p);
+ %найдем корни производной
+ qr=roots(q);
+ qr1=[qr(1)];
+ qr2=[qr(2)];
+ %найдем значение полинома в точках qr
+ sp=polyval(p,qr);
+ sp1=[sp(1)];
+ sp2=[sp(2)];
+ %Отмечаем точки максимума и минимума
+ plot(qr,sp,'b*');
+ %Вычислим вторую производную и найдем точку перегиба 
+ i=polyder(q);
+ %Найдем корни второй производной
+ ir=roots(i);
+ %Найдем значение полинма в точке ir
+ ip=polyval(p, ir);
+ %Отмечаем точку перегиба
+ plot(ir,ip,'gh');
+ title('p(x)=0.7*x^3-3.6*x^2+1.25*x+2.26');
+ xlabel('x');
+ ylabel('y');
+ %Обозначим точки
+ n1=[r1,0];
+ n2=[r1-1, 5];
+ plot([n1(1), n2(1)], [n1(2), n2(2)], 'r', 'Linewidth', 0.3);
+ text(n2(1)-0.2,n2(2)+0.2, 'root');
+ n3=[r2,0];
+ n4=[r2-1, 5];
+ plot([n3(1), n4(1)], [n3(2), n4(2)], 'r', 'Linewidth', 0.3);
+ text(n4(1)-0.2,n4(2)+0.2, 'root');
+ n5=[r3,0];
+ n6=[r3-1, 5];
+ plot([n5(1), n6(1)], [n5(2), n6(2)], 'r', 'Linewidth', 0.3);
+ text(n6(1)-0.2,n6(2)+0.2, 'root');
+ n7=[qr1,sp1];
+ n8=[qr1, sp1+7];
+ plot([n7(1), n8(1)], [n7(2), n8(2)], 'r', 'Linewidth', 0.3);
+ text(n8(1)-0.2,n8(2)+0.2, 'min');
+ n9=[qr2,sp2];
+ n10=[qr2, sp2-7];
+ plot([n9(1), n10(1)], [n9(2), n10(2)], 'r', 'Linewidth', 0.3);
+ text(n10(1)-0.2,n10(2)+0.2, 'max');
+ n11=[ir,ip];
+ n12=[ir+1, ip+6];
+ plot([n11(1), n12(1)], [n11(2), n12(2)], 'r', 'Linewidth', 0.3);
+ text(n12(1)-0.2,n12(2)+0.2, 'inflection'); 
+  
+ %задание 1 b
+ 
+%для функции
+
+x4 = -4.5:0.01:0.5; % шаг для функции
+x5= -4.5:1:0.5; % шаги для маркеров функции
+x6= -4.5:0.5:0.5;
+x7= -4.5:0.8:0.5;
+x8= -4.5:0.9:0.5;
+figure
+
+subplot(2,2,1) %(кол-во полей по горизонтали, кол-во по вертикале, номер графика)
+hold on
+grid on
+plot(x4,y(x4),'-b','LineWidth',3) % сплошная синяя
+plot(x5,y(x5),'rh', 'MarkerFaceColor', 'r')
+title('y1(x)')
+xlabel('x')
+ylabel('y')
+
+subplot(2,2,2)
+hold on
+grid on
+plot(x4,y(x4),'--m','LineWidth',2) % штрихованая фиолетовая
+plot(x6,y(x6),'ko', 'MarkerFaceColor', 'y')
+title('y2(x)')
+xlabel('x')
+ylabel('y')
+
+subplot(2,2,3)
+hold on
+grid on
+plot(x4,y(x4),':r','LineWidth',3) % пунктирная красная
+plot(x7,y(x7),'bs', 'MarkerFaceColor', 'g')
+title('y3(x)')
+xlabel('x')
+ylabel('y')
+
+subplot(2,2,4)
+hold on
+grid on
+plot(x4,y(x4),'-.g','LineWidth',2) %штрих-пунктирная зеленая
+plot(x8,y(x8),'kd', 'MarkerFaceColor', 'm')
+title('y4(x)')
+xlabel('x')
+ylabel('y')
+
+% для полинома
+
+x9= -2:0.01:5; % шаг для полинома
+x10= -2:1:5; % шаги для маркеров полинома
+x11= -2:1.5:5;
+x12= -2:1.2:5;
+x13= -2:1.7:5;
+
+pv = polyval(p,x9);
+pvx = polyval(p,x10);
+
+figure
+
+subplot(2,2,1)
+hold on
+grid on
+plot(x9,pv,'-g','LineWidth',2) %зеленая сплошная
+plot(x10 , pvx, 'ks', 'MarkerFaceColor', 'r')
+title('p1(x)')
+xlabel('x')
+ylabel('y')
+
+pvx = polyval(p,x11)
+
+subplot(2,2,2)
+hold on
+grid on
+plot(x9,pv,':b','LineWidth',3) % синяя пунктирная
+plot(x11, pvx, 'ro', 'MarkerFaceColor', 'y')
+title('p2(x)')
+xlabel('x')
+ylabel('y')
+
+pvx = polyval(p,x12)
+
+subplot(2,2,3)
+hold on
+grid on
+plot(x9,pv,'--m','LineWidth',2) % фиолетовая шриховая
+plot(x12,pvx,'kd', 'MarkerFaceColor', 'g')
+title('p3(x)')
+xlabel('x')
+ylabel('y')
+
+pvx = polyval(p,x13)
+
+subplot(2,2,4)
+hold on
+grid on
+plot(x9,pv,'-.r','LineWidth',2) %штрих-пунктирная красная
+plot(x13,pvx,'bh', 'MarkerFaceColor', 'g')
+title('p4(x)')
+xlabel('x')
+ylabel('y')
+
+% задание 1 c
+
+figure
+
+subplot(2,2,1) % построение без характерных точек
+x=-4.5:0.01:4.7;
+pv = polyval(p,x);
+plot(x,y(x),'b')
+grid on
+hold on
+plot(x,pv, 'r')
+title('без точек')
+xlabel('x')
+ylabel('y1')
+
+subplot(2,2,2) % с точками функции
+
+x=-4.5:0.01:4.7;
+plot(x,y(x),'-.m')
+hold on
+grid on
+plot(x,pv,'-b')
+plot(xmin,ymin, 'bh'); % отмечаем минимум функции
+plot(xmax,-fmax,'bh' )%отмечаем минимум перевернут.-максимумы исходной на всем промежутке
+plot(xmin2, ymin2,'bh');
+plot(x2,y2, 'g*');
+plot(x3,y3, 'g*');
+%plot(x4,y4, 'g*');
+title('точки функции')
+xlabel('x')
+ylabel('y2')
+
+subplot(2,2,3) % с точками полинома
+
+x=-4.5:0.01:4.7;
+plot(x,y(x),'--r')
+hold on
+grid on
+plot(x,pv,':k')
+plot(qr,sp,'kh')
+plot(ir,ip,'gh')
+plot(r,0,'r*');
+title('точки полинома')% корни полинома
+xlabel('x')
+ylabel('y3')
+
+subplot(2,2,4)
+
+x=-4.5:0.01:4.7;
+plot(x,y(x),'-k')
+hold on
+grid on
+plot(x,pv,'-b')
+plot(xmin,ymin, 'bh'); % отмечаем минимум функции
+plot(xmax,-fmax,'bh' )%отмечаем минимум перевернут.-максимумы исходной на всем промежутке
+plot(xmin2, ymin2,'bh');
+plot(x2,y2, 'g*');%корни
+plot(x3,y3, 'g*');
+%plot(x4,y4, 'g*');
+plot(qr,sp,'kh')
+plot(ir,ip,'gh')
+plot(r,0,'r*');
+%plot(x3,y3, 'g*');
+title('все точки')
+xlabel('x')
+ylabel('y4')
